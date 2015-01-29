@@ -21,21 +21,8 @@ public class PluginListener implements Listener, Runnable
         {
         playerJoinEvent = e;
         
-        new Thread(this){{ 
-            start();
-        }};
-        
-        /*
-        Player p = e.getPlayer();
-        String title = "TitisGames";
-        String subtitle = "Welcome " + p.getName() + " !";
-        Title t = new Title(title, subtitle);
-        t.setTitleColor(ChatColor.GOLD);
-        t.setSubtitleColor(ChatColor.RED);
-        t.send(p);
-        
-        
-                */
+        //New thread to don't impact the main thread
+        new Thread(this){{ start(); }};
         }
 
     @Override
@@ -51,7 +38,6 @@ public class PluginListener implements Listener, Runnable
         
         for(int i=0; i<10; i++)
             {
-            p.playSound(p.getLocation(), Sound.NOTE_PIANO, 1, i);
             try
                 {
                 Thread.sleep(500);
@@ -60,6 +46,8 @@ public class PluginListener implements Listener, Runnable
                 {
                 Logger.getLogger(PluginListener.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            
+            p.playSound(p.getLocation(), Sound.NOTE_PIANO, 1, i);
             }
         }
     }
